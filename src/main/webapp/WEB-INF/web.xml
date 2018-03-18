@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+   
+    
+    <servlet>
+        <servlet-name>myProductServlet</servlet-name>
+        <servlet-class>product_pkg.MyProductServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>myProductServlet</servlet-name>
+        <url-pattern>/myProductServletApp</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>singleProductServlet</servlet-name>
+        <servlet-class>product_pkg.SingleProductServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>singleProductServlet</servlet-name>
+        <url-pattern>/singleProductServletApp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>productSearchServlet</servlet-name>
+        <servlet-class>product_pkg.ProductSearchServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>productSearchServlet</servlet-name>
+        <url-pattern>/productSearchServletApp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>cartManipulationServlet</servlet-name>
+        <servlet-class>product_pkg.CartManipulationServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>cartManipulationServlet</servlet-name>
+        <url-pattern>/cartManipulationServletApp</url-pattern>
+    </servlet-mapping>
+    
+    
+</web-app>

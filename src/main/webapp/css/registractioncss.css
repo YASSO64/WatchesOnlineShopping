@@ -1,0 +1,83 @@
+*
+{
+    padding:0;
+    margin:0;
+}
+.container
+{
+    width:1000px;
+    margin:10 auto;
+}
+
+.form1 {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+
+.cancelbtn,.signupbtn{
+    float: left;
+    width: 50%;
+}
+
+
+.Containerform {
+    padding: 16px;
+    width:500px;
+    padding-left:200px;
+    margin-left: 150px;
+}
+
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.formborder{
+    width:1000px;
+    display: inline-block;	
+}
+
+p
+{
+    margin-left: 10px;
+    color: #99ccff;
+    font-size: 30px;
+    margin-top: 20px;
+    font-weight: bold;
+
+
+
+}
+.AddButton
+{
+    width:180px;
+    background-color: #4CAF50;
+    color: white;
+    height:20px;
+    border: none;
+    cursor: pointer;
+}
+
