@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-   
-    
     <servlet>
         <servlet-name>myProductServlet</servlet-name>
         <servlet-class>product_pkg.MyProductServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>myProductServlet</servlet-name>
         <url-pattern>/myProductServletApp</url-pattern>
     </servlet-mapping>
-    
-     <servlet>
+    <servlet>
         <servlet-name>singleProductServlet</servlet-name>
         <servlet-class>product_pkg.SingleProductServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>singleProductServlet</servlet-name>
         <url-pattern>/singleProductServletApp</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>productSearchServlet</servlet-name>
         <servlet-class>product_pkg.ProductSearchServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>productSearchServlet</servlet-name>
         <url-pattern>/productSearchServletApp</url-pattern>
     </servlet-mapping>
-    
     <servlet>
-        <servlet-name>cartManipulationServlet</servlet-name>
-        <servlet-class>product_pkg.CartManipulationServlet</servlet-class>
+        <servlet-name>addToCartServlet</servlet-name>
+        <servlet-class>product_pkg.AddToCartServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
-        <servlet-name>cartManipulationServlet</servlet-name>
-        <url-pattern>/cartManipulationServletApp</url-pattern>
+        <servlet-name>addToCartServlet</servlet-name>
+        <url-pattern>/addToCartServletApp</url-pattern>
     </servlet-mapping>
-    
-    
+    <servlet>
+        <servlet-name>displayCartProductsServlet</servlet-name>
+        <servlet-class>product_pkg.DisplayCartProductsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>displayCartProductsServlet</servlet-name>
+        <url-pattern>/displayCartProductsServletApp</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>removeFromCartServlet</servlet-name>
+        <servlet-class>product_pkg.RemoveFromCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>removeFromCartServlet</servlet-name>
+        <url-pattern>/removeFromCartServletApp</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>buyServlet</servlet-name>
+        <servlet-class>product_pkg.BuyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>buyServlet</servlet-name>
+        <url-pattern>/buyServletApp</url-pattern>
+    </servlet-mapping>
 </web-app>

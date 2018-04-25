@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="displayCartProductsServletApp"></jsp:include>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<%--<jsp:include page="buyServletApp"></jsp:include>--%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +17,8 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
         <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <!--Custom-Theme-files-->
         <!--theme-style-->
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -27,48 +34,122 @@
         <script type="text/javascript" src="js/memenu.js"></script>
         <script>$(document).ready(function() {
                 $(".memenu").memenu();
-            });</script>	
+            });</script>
+        <script>
+            var req = null;
+            function loginReq() {
+                if (window.XMLHttpRequest)
+                    req = new XMLHttpRequest();
+                else if (window.ActiveXObject)
+                    req = new ActiveXObject(Microsoft.XMLHTTP);
+                email = document.getElementById("email").value;
+                psw = document.getElementById("password").value;
+                url = "Login?timeStamp=" + new Date().getTime();
+                req.open("POST", url, true);
+                req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                req.onreadystatechange = confirmLoginReq;
+                console.log(email + "###" + psw);
+                //                req.send(null);
+                req.send("email=" + email + "&psw=" + psw);
+            }
+            function confirmLoginReq() {
+                if (req.readyState == 4)
+                    if (req.status == 200) {
+                        header = document.getElementById("top-header");
+                        console.log(req.responseText);
+                        response = req.responseText;
+                        if (response === "user")
+                            location.reload();
+                        else
+                            location.assign("adminjsp/index.html");
+                    } else
+                        window.alert("you may have problem with your connection");
+            }
+            var secondReq = null;
+            var removedItem = null;
+            function removeReq(cartItemId) {
+                if (window.XMLHttpRequest)
+                    secondReq = new XMLHttpRequest();
+                else if (window.ActiveXObject)
+                    secondReq = new ActiveXObject(Microsoft.XMLHTTP);
+                console.log(cartItemId);
+                removedItem = cartItemId;
+                url = "removeFromCartServletApp?" + "cartItemIdToRemove=" + cartItemId + "&timeStamp=" + new Date().getTime();
+                secondReq.open("GET", url, true);
+                secondReq.onreadystatechange = confirmRemoveReq;
+                secondReq.send(null);
+            }
+            function confirmRemoveReq() {
+                if (secondReq.readyState == 4)
+                    if (secondReq.status == 200) {
+                        console.log("second req");
+                        console.log(secondReq.responseText);
+                        response2 = secondReq.responseText;
+                        if (response2 == "done")
+                            $('#' + removedItem).fadeOut('slow', function(c) {
+                                $('#' + removedItem).remove();
+                            });
+                    } else
+                        window.alert("your item has't been removed");
+            }
+            var thirdReq = null;
+            var productId = null;
+
+            function buyReq(prodId, prodQuantity, prodPrice) {
+                if (window.XMLHttpRequest)
+                    thirdReq = new XMLHttpRequest();
+                else if (window.ActiveXObject)
+                    thirdReq = new ActiveXObject(Microsoft.XMLHTTP);
+                productId = prodId;
+                url = "buyServletApp?" + "prodId=" + prodId + "&prodQuantity=" + prodQuantity + "&prodPrice=" +
+                        prodPrice + "&timeStamp=" + new Date().getTime();
+                thirdReq.open("GET", url, true);
+                thirdReq.onreadystatechange = confirmBuyReq;
+                thirdReq.send(null);
+            }
+            function confirmBuyReq() {
+                if (thirdReq.readyState == 4)
+                    if (thirdReq.status == 200) {
+                        console.log("buy req");
+                        console.log(thirdReq.responseText);
+                        response3 = thirdReq.responseText;
+                        if (response3 == "valid") {
+                            $('#validBuyModal').modal({
+                                show: 'true'
+                            });
+                            $('#' + productId).fadeOut('slow', function(c) {
+                                $('#' + productId).remove();
+                            });
+                        }
+                        else if (response3 == "invalid")
+                            $('#myModal').modal({
+                                show: 'true'
+                            });
+                    } else
+                        window.alert("buying confirmation");
+            }
+            function openNav() {
+                document.getElementById("myNav").style.height = "100%";
+            }
+
+            function closeNav() {
+                document.getElementById("myNav").style.height = "0%";
+            }
+        </script>
         <!--dropdown-->
         <script src="js/jquery.easydropdown.js"></script>			
     </head>
     <body> 
         <!--top-header-->
-        <div class="top-header">
+        <!--top-header-->
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <c:import url="loginjsp.jsp"/>
+        </div>
+
+        <div class="top-header" id="top-header">
             <div class="container">
-                <div class="top-header-main">
-                    <div class="col-md-6 top-header-left">
-                        <div class="drop">
-                            <div class="box">
-                                <select tabindex="4" class="dropdown drop">
-                                    <option value="" class="label">Dollar :</option>
-                                    <option value="1">Dollar</option>
-                                    <option value="2">Euro</option>
-                                </select>
-                            </div>
-                            <div class="box1">
-                                <select tabindex="4" class="dropdown">
-                                    <option value="" class="label">English :</option>
-                                    <option value="1">English</option>
-                                    <option value="2">French</option>
-                                    <option value="3">German</option>
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 top-header-left">
-                        <div class="cart box_1">
-                            <a href="checkout.jsp">
-                                <div class="total">
-                                    <span class="simpleCart_total"></span></div>
-                                <img src="images/cart-1.png" alt="" />
-                            </a>
-                            <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-                            <div class="clearfix"> </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+                <c:import url="top-header.jsp"/>
             </div>
         </div>
         <!--top-header-->
@@ -88,15 +169,11 @@
                                 </li>
                                 <li class="grid"><a href="products.jsp?category=Women">Women</a>
                                 </li>
-                                <li class="grid"><a href="account.jsp">Login</a>
-                                </li>
-                                <li class="grid"><a href="Signup.jsp">SignUp</a>
-                                </li>
                             </ul>
                         </div>
                         <div class="clearfix"> </div>
                     </div>
-               
+
                     <div class="clearfix"> </div>
                 </div>
             </div>
@@ -114,6 +191,44 @@
             </div>
         </div>
         <!--end-breadcrumbs-->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Warning</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>sorry, you don't have enough balance.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="validBuyModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Paying Process</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Successfully Paid.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!--start-ckeckout-->
         <div class="ckeckout">
             <div class="container">
@@ -123,37 +238,52 @@
                 <div class="ckeckout-top">
                     <div class="cart-items">
                         <h3>My Shopping Bag</h3>
-                        <script>$(document).ready(function(c) {
-                                $('.close1').on('click', function(c) {
-                                    $('.cart-header').fadeOut('slow', function(c) {
-                                        $('.cart-header').remove();
-                                    });
+                        <script>
+                            var url = "";
+                            function setBuyingParams(prodId, prodQuantity, prodPrice) {
+                                url = "checkout.jsp?prodId=" + prodId + "&prodQuantity=" + prodQuantity + "&prodPrice=" + prodPrice;
+                                $('#' + prodId).fadeOut('slow', function(c) {
+                                    $('#' + prodId).remove();
                                 });
-                            });
+                                window.location.href = url;
+
+                            }
                         </script>
-       
 
                         <div class="in-check" >
                             <ul class="unit">
                                 <li><span>Item</span></li>
                                 <li><span>Product Name</span></li>		
                                 <li><span>Unit Price</span></li>
-                                <li> </li>
+                                <li><span>Quantity</span></li>
+
                                 <div class="clearfix"> </div>
                             </ul>
-                            <ul class="cart-header">
-                                <div class="close1"> </div>
-                                <li class="ring-in"><a href="single.jsp" ><img src="images/c-1.jpg" class="img-responsive" alt=""></a>
-                                </li>
-                                <li><span class="name">Analog Watches</span></li>
-                                <li><span class="cost">$ 290.00</span></li>
-                                <li>
-                                    <input style="margin-top:30px; background-color: #33adff; color:#fff; border-radius:5px;"
-                                           type="button" value="Buy" id="buyProd" />
-                                </li>
-                                <div class="clearfix"> </div>
-                            </ul>
+                            <c:forEach items="${sessionScope.cartProducts}" var="cartProduct">
+                                <ul class="cart-header" id="${cartProduct.id}">
+                                    <div class="close1" onclick="removeReq(${cartProduct.id});"> </div>
+                                    <li class="ring-in">
+                                        <a href="single.jsp?id=<c:out value='${cartProduct.id}'/>">
+                                            <img class="img-responsive" 
+                                                 src="<c:out value="${cartProduct.imageName}"/>" alt="">
+                                        </a>
+                                    </li>
+                                    <li><span class="name"><c:out value="${cartProduct.productName}"/></span></li>
+                                    <li><span class="cost"><c:out value="${cartProduct.productPrice}"/></span></li>
+                                    <li><span class="cost"><c:out value="${cartProduct.productQuantity}"/></span></li>
+                                    <li>
+                                        <input style="margin-top:30px; background-color: #33adff;
+                                               color:#fff; border-radius:5px;"
+                                               type="button" value="Buy" id="buyProd" 
+                                               onclick="buyReq(${cartProduct.id},${cartProduct.productQuantity},
+                                               ${cartProduct.productPrice});">
+                                    </li>
+
+                                    <div class="clearfix"> </div>
+                                </ul>  
+                            </c:forEach>
                         </div>
+
                     </div>  
                 </div>
             </div>
@@ -210,9 +340,10 @@
                 <div class="footer-top">
                     <div class="col-md-6 footer-left">
                         <form>
-                            <input type="text" value="Enter Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {
-                                        this.value = 'Enter Your Email';
-                                    }">
+                            <input type="text" value="Enter Your Email" onfocus="this.value = '';"
+                                   onblur="if (this.value == '') {
+                                               this.value = 'Enter Your Email';
+                                           }">
                             <input type="submit" value="Subscribe">
                         </form>
                     </div>

@@ -1,26 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Beans;
 
 import java.util.Date;
 
-/**
- *
- * @author Rania
- */
 public class User {
 
     private int id;
     private String user_name;
     private String password;
     private String user_email;
-    private Date birthDate;
+    private String birthDate;
     private String credit_number;
     private String user_job;
     private String profile_pic;
+    private String type;
+    private String user_address;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -54,11 +56,11 @@ public class User {
         this.user_email = user_email;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -84,6 +86,14 @@ public class User {
 
     public void setProfile_pic(String profile_pic) {
         this.profile_pic = profile_pic;
+    }
+
+    public String getUser_address() {
+        return user_address;
+    }
+
+    public void setUser_address(String user_address) {
+        this.user_address = user_address;
     }
 
 }

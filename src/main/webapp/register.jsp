@@ -25,52 +25,65 @@
         <script src="js/simpleCart.min.js"></script>
         <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="js/memenu.js"></script>
-        <script>$(document).ready(function() {
-    $(".memenu").memenu();
-});</script>	
+ <script>
+            var req = null;
+            function loginReq() {
+                if (window.XMLHttpRequest)
+                    req = new XMLHttpRequest();
+                else if (window.ActiveXObject)
+                    req = new ActiveXObject(Microsoft.XMLHTTP);
+                email = document.getElementById("email").value;
+                psw = document.getElementById("password").value;
+                url = "Login?timeStamp=" + new Date().getTime();
+                req.open("POST", url, true);
+                req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                req.onreadystatechange = confirmLoginReq;
+                console.log(email+"###"+psw);
+//                req.send(null);
+                req.send("email=" + email + "&psw=" + psw);
+            }
+            function confirmLoginReq() {
+                if (req.readyState == 4)
+                    if (req.status == 200) {
+                        header = document.getElementById("top-header");
+                        console.log(req.responseText);
+                        response = req.responseText;
+                        if(response === "user")
+                            location.reload();
+                        else
+                            location.assign("adminjsp/index.html");
+                    } else
+                        window.alert("you may have problem with your connection");
+            }
+            function openNav() {
+                document.getElementById("myNav").style.height = "100%";
+            }
+
+            function closeNav() {
+                document.getElementById("myNav").style.height = "0%";
+            }
+        </script>
+             <script>
+                 $(document).ready(function() {
+                 $(".memenu").memenu();});
+            </script>
         <!--dropdown-->
         <script src="js/jquery.easydropdown.js"></script>			
     </head>
     <body> 
         <!--top-header-->
-        <div class="top-header">
+              <!--top-header-->
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+             <c:import url="loginjsp.jsp"/>
+        </div>
+
+        <div class="top-header" id="top-header">
             <div class="container">
-                <div class="top-header-main">
-                    <div class="col-md-6 top-header-left">
-                        <div class="drop">
-                            <div class="box">
-                                <select tabindex="4" class="dropdown drop">
-                                    <option value="" class="label">Dollar :</option>
-                                    <option value="1">Dollar</option>
-                                    <option value="2">Euro</option>
-                                </select>
-                            </div>
-                            <div class="box1">
-                                <select tabindex="4" class="dropdown">
-                                    <option value="" class="label">English :</option>
-                                    <option value="1">English</option>
-                                    <option value="2">French</option>
-                                    <option value="3">German</option>
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 top-header-left">
-                        <div class="cart box_1">
-                            <a href="checkout.jsp">
-                                <div class="total">
-                                    <span class="simpleCart_total"></span></div>
-                                <img src="images/cart-1.png" alt="" />
-                            </a>
-                            <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-                            <div class="clearfix"> </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+             <c:import url="top-header.jsp"/>
             </div>
         </div>
+        <!--top-header-->
         <!--top-header-->
         <!--start-logo-->
         <div class="logo">

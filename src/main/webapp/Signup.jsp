@@ -6,11 +6,9 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 
-<html>
+ <html>
 <head>
 
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -34,7 +32,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="js/memenu.js"></script>
 <script>$(document).ready(function(){$(".memenu").memenu();});</script>	
 <!--dropdown-->
-<script src="js/jquery.easydropdown.js"></script>			
+<script src="js/jquery.easydropdown.js"></script>	
+ <script>
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+        </script>
 </head>
 <body> 
 	<!--top-header-->
@@ -90,7 +104,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
       
         <div class= "container">
-	<form class="formborder" name="registration" method="get" action="SignUp">
+	<form class="formborder" name="registration" method="post"  enctype="multipart/form-data" action="SignUp">
 <div class="Containerform">
 
   <label><b>UserName</b></label>
@@ -115,33 +129,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <input id="date" type="date" placeholder="yy/mm/dd" class="form1" name="birthday"><br>
      <div id='birthday' class="error"></div>
   
-  <label><b>Credit Number</b></label>
-  <input type="text" placeholder="Enter your Credit Number " name="creditnumber" required class="form1" id="userpassretype"><br>
+  <label><b>Credit Limit</b></label>
+  <input type="text" placeholder="Enter your Credit Limit " name="creditnumber" required class="form1" id="userpassretype"><br>
     <div id='age1' class="error"></div>
  <label><b>Address</b></label><br>
-  <textarea rows="4" cols="30" name="addresss"  placeholder="Enter your Address" class="form1" id="adress"></textarea>
+  <textarea rows="4" cols="30" name="addresss"  placeholder="Enter your Address" name ="address" class="form1" id="adress"></textarea>
    <br> <br> 
-  <label><b> Gender</b></label>
-  <input type="radio" name="gender" value="male"  id="femaletype"  > Male
-  <input type="radio" name="gender" value="female"  id="maletype"> Female<br>
-   <div id='gendertype' class="error"></div><br>
-     <label><b> Choose your Interests</b></label><br><br>
-   <div>
-    <input type="checkbox" id="coding" name="interest" value="coding" >
-    <label >Coding</label>
-  </div>
-  <div>
-    <input type="checkbox" id="music" name="interest" value="music">
-    <label>Music</label>
-  </div>
-  <div>
-    <input type="checkbox" id="playing" name="interest" value="coding">
-    <label >playing</label>
-  </div><br>
+ 
+  
+   <div style="margin-left:0px">
+                          <img id="blah" src="#" alt="Choose your  image" style="margin-bottom: 30px;margin-top: 10px"/>
+                          <input type='file'   onchange="readURL(this); " id="getimage" name="img"/>
+                         
+                      </div>
+                       
   <div id='checkboxval' class="error"></div>
   
   <div class="clearfix">
-      <button type="button"  class="cancelbtn">Cancel</button>
+     
       <button type="submit" class="signupbtn" id="login1">Sign Up</button>
 	 
     </div><br>

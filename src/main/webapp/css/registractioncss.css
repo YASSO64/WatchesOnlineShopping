@@ -1,12 +1,12 @@
 *
 {
-    padding:0;
-    margin:0;
+	padding:0;
+	margin:0;
 }
 .container
 {
-    width:1000px;
-    margin:10 auto;
+	width:1000px;
+	margin:10 auto;
 }
 
 .form1 {
@@ -20,7 +20,7 @@
 
 
 button {
-    background-color: #4CAF50;
+    background-color: #42aaf4;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -44,9 +44,9 @@ button {
 
 .Containerform {
     padding: 16px;
-    width:500px;
-    padding-left:200px;
-    margin-left: 150px;
+	width:500px;
+	padding-left:200px;
+         margin-left: 150px;
 }
 
 
@@ -56,28 +56,33 @@ button {
     display: table;
 }
 .formborder{
-    width:1000px;
-    display: inline-block;	
+	width:1000px;
+	 display: inline-block;
+        
+	 
+	
+	
 }
 
 p
 {
-    margin-left: 10px;
-    color: #99ccff;
-    font-size: 30px;
-    margin-top: 20px;
+   margin-left: 10px;
+   color: #99ccff;
+   font-size: 30px;
+   margin-top: 20px;
     font-weight: bold;
-
-
-
+  
+   
+   
 }
 .AddButton
 {
-    width:180px;
-    background-color: #4CAF50;
+	width:180px;
+	background-color: #4CAF50;
     color: white;
     height:20px;
     border: none;
     cursor: pointer;
+
 }
 
